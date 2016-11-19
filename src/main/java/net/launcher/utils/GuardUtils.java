@@ -1,10 +1,6 @@
 package net.launcher.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -211,20 +207,23 @@ public class GuardUtils
 	        {
 	            int platform = BaseUtils.getPlatform();
 	            String line; Process p;
-	            List<String> processes = new ArrayList<>();
+	            List<String> processes = new ArrayList<String>();
 	            
 	            if (platform == 2) p = Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe /v /fo list");
 	            else p = Runtime.getRuntime().exec("ps -e");
 	            
-	            try (BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream())))
+	            try
 	            {
-	                
+					BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 	                while ((line = input.readLine()) != null)
 	                {
 	                    processes.add(line.toLowerCase());
 	                }
 	                
 	            }
+	            catch (IOException ex) {
+					ex.printStackTrace();
+				}
 	            
 	            for(String process : processes)
 	            {
