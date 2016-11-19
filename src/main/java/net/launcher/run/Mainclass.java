@@ -26,15 +26,16 @@ public class Mainclass
 	        while ((readBytes = stream.read(buffer)) > 0) {
 	            resStreamOut.write(buffer, 0, readBytes);
 	        }
-	    } catch (IOException e1) {
+	    }
+	    catch (IOException e1) {
 	        e1.printStackTrace();
-	    } finally {
+	    }
+	    finally {
 	        stream.close();
 	        resStreamOut.close();
 	    }
 		Frame.start();
-		if(BaseUtils.getPropertyBoolean("Music", true))
-		{
+		if (BaseUtils.getPropertyBoolean("Music", true)) {
            new MusPlay(Settings.iMusicname);
         }
 	}
